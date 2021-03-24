@@ -23,7 +23,7 @@ keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel",
 # Récupération liste des profils bloqués, et des tweets cancer
 
 blockedUsers = list({'user': user['screen_name']} for user in api.request('blocks/list'))
-results = api.request("search/tweets", {"q": " OR ".join(keywords), "count": "250", "result_type": "recent"})
+results = api.request("search/tweets", {"q": " OR ".join(keywords), "count": "100", "result_type": "recent"})
 
 # Si le tn ou le @ du mec contient "pessi" alors on le bloque ce fdp
 
