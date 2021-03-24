@@ -1,7 +1,7 @@
 # AntiPessi
 Script qui parcoure les tweets cringe et qui bloque les Pessi automatiquement.
 
-Voici tous les Pessi que j'ai bloqué pour l'instant : https://razen.wtf/pessis
+Pessis que j'ai bloqué : https://razen.wtf/pessis
 
 ## Pré-requis
 
