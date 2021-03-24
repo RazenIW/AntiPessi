@@ -1,4 +1,4 @@
-# Anti Pessi By Razen (@_totor__) s/o Tarace 667 ekip
+# Anti Pessi By Razen s/o Tarace 667 ekip
 
 from TwitterAPI import TwitterAPI
 from datetime import datetime
@@ -22,14 +22,16 @@ keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel",
 
 # Récupération liste des profils bloqués, et des tweets cancer
 
+arr = []
 blockedUsers = list({'user': user['screen_name']} for user in api.request('blocks/list'))
-results = api.request("search/tweets", {"q": " OR ".join(keywords), "count": "100", "result_type": "recent"})
+results = api.request("search/tweets", {"q": " OR ".join(keywords), "count": "250", "result_type": "recent"})
 
 # Si le tn ou le @ du mec contient "pessi" alors on le bloque ce fdp
 
 for tweet in results:
     tn, aro = tweet["user"]["name"], tweet["user"]["screen_name"]
     if "pessi" in str.lower(tn) or "pessi" in str.lower(aro):
-        if tweet["user"]["id"] not in blockedUsers:
+        if aro not in blockedUsers and aro not in arr:
             api.request("blocks/create", {"screen_name": aro})
             print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - " + tn + " (@" + aro + ") a été bloqué.")
+            arr.append(aro)
