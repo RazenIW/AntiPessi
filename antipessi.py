@@ -1,4 +1,4 @@
-# Anti Pessi By Razen s/o Tarace 667 ekip
+# Anti Pessi By Razen (@_totor__) s/o Tarace 667 ekip
 
 from TwitterAPI import TwitterAPI
 from datetime import datetime
