@@ -1,6 +1,7 @@
 # Anti Pessi By Razen s/o Tarace 667 ekip
 
 from TwitterAPI import TwitterAPI
+from datetime import datetime
 
 # API Tokens
 
@@ -31,4 +32,4 @@ for tweet in results:
     if "pessi" in str.lower(tn) or "pessi" in str.lower(aro):
         if tweet["user"]["id"] not in blockedUsers:
             api.request("blocks/create", {"screen_name": aro})
-            print(tn + " (@" + aro + ") a été bloqué.")
+            print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - " + tn + " (@" + aro + ") a été bloqué.")
