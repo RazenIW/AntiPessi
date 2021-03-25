@@ -26,6 +26,8 @@ arr = []
 blockedUsers = list(api.request('blocks/ids'))
 results = api.request("search/tweets", {"q": " OR ".join(keywords) + " exclude:retweets", "count": "100", "result_type": "recent"})
 
+# Si le tn ou le @ du mec contient "pessi" alors on le bloque ce fdp
+
 for tw in results:
     uid, tn, aro = tw["user"]["id"], tw["user"]["screen_name"], tw["user"]["name"]
     if "pessi" in str.lower(tn) or "pessi" in str.lower(aro):
