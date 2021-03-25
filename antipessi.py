@@ -23,15 +23,13 @@ keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel",
 # Récupération liste des profils bloqués, et des tweets cancer
 
 arr = []
-blockedUsers = list({'user': user['screen_name']} for user in api.request('blocks/list'))
-results = api.request("search/tweets", {"q": " OR ".join(keywords), "count": "250", "result_type": "recent"})
+blockedUsers = list(api.request('blocks/ids'))
+results = api.request("search/tweets", {"q": " OR ".join(keywords) + " exclude:retweets", "count": "100", "result_type": "recent"})
 
-# Si le tn ou le @ du mec contient "pessi" alors on le bloque ce fdp
-
-for tweet in results:
-    tn, aro = tweet["user"]["name"], tweet["user"]["screen_name"]
+for tw in results:
+    uid, tn, aro = tw["user"]["id"], tw["user"]["screen_name"], tw["user"]["name"]
     if "pessi" in str.lower(tn) or "pessi" in str.lower(aro):
-        if aro not in blockedUsers and aro not in arr:
-            api.request("blocks/create", {"screen_name": aro})
+        if uid not in blockedUsers and uid not in arr:
+            api.request("blocks/create", {"user_id": uid})
             print(datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " - " + tn + " (@" + aro + ") a été bloqué.")
-            arr.append(aro)
+            arr.append(uid)
