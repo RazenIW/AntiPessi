@@ -1,4 +1,4 @@
-# Anti Pessi
+# Anti Pessi pour Twitter
 Script qui parcoure les tweets cringe et qui bloque les Pessi automatiquement.
 
 ## Pré-requis
