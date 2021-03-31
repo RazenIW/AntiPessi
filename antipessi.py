@@ -16,10 +16,10 @@ access_token_secret = ""
 
 # Paramètres ----------------------------
 
-# Nombre de Pessis que vous voulez bloquer par jour (Twitter bloquera votre application si vous bloquez trop de comptes par jour
+# Nombre de Pessis que vous voulez bloquer par jour (Twitter bloquera votre application si vous en bloquez trop)
 limite = 90
 
-# Le chemin vers le fichier qui sert à stocker les ID des Pessi bloqués aujourd'hui
+# Chemin vers le fichier qui sert à stocker les ID des Pessi bloqués aujourd'hui
 pathToBlockedToday = "/path/to/blocked_today.txt"
 
 # Ne pas toucher ce qui suit ------------
