@@ -1,5 +1,5 @@
 # Anti Pessi pour Twitter
-Script qui bloque automatiquement les Pessi sur Twitter
+Programme qui bloque automatiquement les Pessi sur Twitter
 
 ## Pré-requis
 
