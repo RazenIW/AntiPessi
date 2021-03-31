@@ -47,7 +47,7 @@ for tw in results:
 
 if len(toBlock) > 0:
     with open(pathToBlockedToday, "a") as file:
-        amtToBlock = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(0, limite - blockedToday)
+        amtToBlock = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(limite - blockedToday)
         file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[i]["uid"] for i in amtToBlock))
         for i in amtToBlock:
             sleep(random.uniform(1, 8))
