@@ -45,11 +45,11 @@ for tw in results:
         if uid not in blockedIds and not any(d["uid"] == uid for d in toBlock):
             toBlock.append({"uid": str(uid), "aro": aro})
 
-amtToBlock = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(0, limite - blockedToday)
-
-with open(pathToBlockedToday, "a") as file:
-    file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[i]["uid"] for i in amtToBlock))
-    for i in amtToBlock:
-        sleep(random.uniform(1, 8))
-        api.request("blocks/create", {"user_id": toBlock[i]["uid"]})
-        print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "-", "@" + toBlock[i]["aro"], "a été bloqué.")
+if len(toBlock) > 0:
+    with open(pathToBlockedToday, "a") as file:
+        amtToBlock = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(0, limite - blockedToday)
+        file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[i]["uid"] for i in amtToBlock))
+        for i in amtToBlock:
+            sleep(random.uniform(1, 8))
+            api.request("blocks/create", {"user_id": toBlock[i]["uid"]})
+            print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "-", "@" + toBlock[i]["aro"], "a été bloqué.")
