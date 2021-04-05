@@ -49,6 +49,6 @@ if toBlock:
     for x in inter:
         sleep(random.uniform(1, 8))
         api.request("blocks/create", {"user_id": toBlock[x]["uid"]})
-        print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "- @" + toBlock[x]["aro"], "a été bloqué.")
+        print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), " - @" + toBlock[x]["aro"], "a été bloqué.")
     with open(pathToBlockedToday, "a") as file:
         file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[x]["uid"] for x in inter))
