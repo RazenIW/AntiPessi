@@ -5,7 +5,6 @@ from time import sleep
 from TwitterAPI import TwitterAPI
 from datetime import datetime
 import random
-import sys
 
 # Tokens Twitter API --------------------
 
@@ -27,7 +26,7 @@ pathToBlockedToday = "/path/to/blocked_today.txt"
 blockedToday = sum(1 for line in open(pathToBlockedToday))
 
 if blockedToday >= limite:
-    sys.exit()
+    exit()
 
 keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel", "prime", "malaise", "supprime",
             "goatesque", "finito", "pleure", "chiale", "chouine", "couine", "aboie", "miaule", "oukhty", "oukhti"}
@@ -47,9 +46,9 @@ for u in users:
 inter = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(limite - blockedToday)
 
 if toBlock:
-    with open(pathToBlockedToday, "a") as file:
-        file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[x]["uid"] for x in inter))
     for x in inter:
         sleep(random.uniform(1, 8))
         api.request("blocks/create", {"user_id": toBlock[x]["uid"]})
         print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "- @" + toBlock[x]["aro"], "a été bloqué.")
+    with open(pathToBlockedToday, "a") as file:
+        file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[x]["uid"] for x in inter))
