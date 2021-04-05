@@ -29,27 +29,27 @@ blockedToday = sum(1 for line in open(pathToBlockedToday))
 if blockedToday >= limite:
     sys.exit()
 
+keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel", "prime", "malaise", "supprime",
+            "goatesque", "finito", "pleure", "chiale", "chouine", "couine", "aboie", "miaule", "oukhty", "oukhti"}
+
 api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
-keywords = {"pessi", "masterclass", "akhy", "akhi", "genant", "fraude", "réel", "prime", "malaise", "supprime",
-            "delete", "goatesque", "finito", "pleure", "chiale", "chouine", "couine", "aboie", "miaule", "oukhty",
-            "oukhti"}
+blocked = set(api.request("blocks/ids", {"stringify_ids": "true"}))
+tweets = api.request("search/tweets", {"q": " OR ".join(keywords) + " exclude:retweets", "count": "100", "result_type": "recent"})
+users = [dict(t) for t in {tuple(d.items()) for d in list({"uid": t["user"]["id_str"], "tn": t["user"]["name"], "aro": t["user"]["screen_name"]} for t in tweets)}]
+toBlock = []
 
-blockedIds = list(api.request('blocks/ids'))
-results = api.request("search/tweets", {"q": " OR ".join(keywords) + " exclude:retweets", "count": "100", "result_type": "recent"})
-toBlock = list(dict())
+for u in users:
+    if u["uid"] not in blocked:
+        if "pessi" in str.lower(u["tn"]) or "pessi" in str.lower(u["aro"]):
+            toBlock.append(u)
 
-for tw in results:
-    uid, tn, aro = tw["user"]["id"], tw["user"]["name"], tw["user"]["screen_name"]
-    if "pessi" in str.lower(tn) or "pessi" in str.lower(aro):
-        if uid not in blockedIds and not any(d["uid"] == uid for d in toBlock):
-            toBlock.append({"uid": str(uid), "aro": aro})
+inter = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(limite - blockedToday)
 
-if len(toBlock) > 0:
+if toBlock:
     with open(pathToBlockedToday, "a") as file:
-        amtToBlock = range(len(toBlock)) if blockedToday + len(toBlock) <= limite else range(limite - blockedToday)
-        file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[i]["uid"] for i in amtToBlock))
-        for i in amtToBlock:
-            sleep(random.uniform(1, 8))
-            api.request("blocks/create", {"user_id": toBlock[i]["uid"]})
-            print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "-", "@" + toBlock[i]["aro"], "a été bloqué.")
+        file.write(("" if blockedToday == 0 else "\n") + "\n".join(toBlock[x]["uid"] for x in inter))
+    for x in inter:
+        sleep(random.uniform(1, 8))
+        api.request("blocks/create", {"user_id": toBlock[x]["uid"]})
+        print(datetime.now().strftime("%d/%m/%Y %H:%M:%S"), "- @" + toBlock[x]["aro"], "a été bloqué.")
