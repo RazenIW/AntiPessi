@@ -1,6 +1,8 @@
 # Anti Pessi pour Twitter
 Programme qui bloque automatiquement les Pessi sur Twitter
 
+Pessis que j'ai bloqué au total : [https://razen.wtf/pessis/](https://razen.wtf/pessis/)
+
 ## Pré-requis
 
 * Tokens d'accès à [l'API Twitter](https://developer.twitter.com/en/portal/dashboard)
